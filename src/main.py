@@ -6,7 +6,7 @@ from tile.grid import Grid
 
 
 logger = logging.getLogger()
-logname = 'gameplay.log'
+logname = 'output/gameplay.log'
 logging.basicConfig(filename=logname,
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(module)s %(levelno)s %(message)s',

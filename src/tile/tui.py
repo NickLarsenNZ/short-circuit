@@ -26,8 +26,11 @@ class TermUI:
             return {'toggle': {'direction': 1}}
         elif inp == 'p':
             return {'toggle': {'direction': -1}}
+
         elif inp == 'z':
             return {'debug': True}
+        elif inp == 'x':
+            return {'save': {'filename': 'output/layout.shs'}}
         else:
             return {'no_op': True}
 
@@ -62,6 +65,7 @@ class TermUI:
 
             move = action.get('move')
             toggle = action.get('toggle')
+            save = action.get('save')
 
             if action.get('exit'):
                 break
@@ -85,6 +89,12 @@ class TermUI:
                 new = None if current else Wire()
                 self.grid.change_tile((x, y), new)
                 # Tile((current.value + toggle['direction']) % len(Tile))
+            elif save:
+                filename = save['filename']
+                logger.info(f'Writing grid state to file: {filename}')
+                with open(filename, 'w') as f:
+                    self.grid.serialize(f)
+
 
     def render(self):
         print(self.t.clear())
